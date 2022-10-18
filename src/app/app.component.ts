@@ -11,11 +11,17 @@ export class AppComponent implements OnInit {
       // this.peliculasEnCines = [];
       this.peliculasEnCines = [
         {
-          titulo: 'harry potter',
+          poster: "https://w0.peakpx.com/wallpaper/811/982/HD-wallpaper-harry-potter-6-harry-potter-magic-the-half-blood-prince.jpg",
+          titulo: 'Harry Potter VI',
           fechaLanzamiento: new Date(),
           precio: 150,
         },
-        { titulo: 'harry potter 2', fechaLanzamiento: new Date(), precio: 300 },
+        {
+          poster: "https://upload.wikimedia.org/wikipedia/en/b/be/The_Lord_of_the_Rings_-_The_Return_of_the_King_%282003%29.jpg",
+          titulo: 'The Lord of the Ring III',
+          fechaLanzamiento: new Date(),
+          precio: 300,
+        },
       ];
       this.peliculasProximosEstrenos = [
         // {
@@ -36,8 +42,7 @@ export class AppComponent implements OnInit {
   peliculasProximosEstrenos;
   title = 'front-end';
 
-
-  manejarRated(voto: number): void{
+  manejarRated(voto: number): void {
     alert(voto);
   }
 }
