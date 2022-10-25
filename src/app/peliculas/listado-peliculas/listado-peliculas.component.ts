@@ -11,15 +11,7 @@ export class ListadoPeliculasComponent implements OnInit {
   peliculas;
 
   ngOnInit(): void {
-    // this.peliculas = [];
-    // this.peliculas = [
-    //   {
-    //     titulo: 'spiderman',
-    //     fechaLanzamiento: new Date(),
-    //     precio: 150,
-    //   },
-    //   { titulo: 'spiderman 2', fechaLanzamiento: new Date(), precio: 300 },
-    // ];
+
   }
 
   remover(indicePelicula: number): void {
