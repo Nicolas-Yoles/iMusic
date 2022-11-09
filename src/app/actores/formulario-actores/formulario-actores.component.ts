@@ -28,6 +28,7 @@ export class FormularioActoresComponent implements OnInit {
         },
       ],
       fechaNacimiento: '',
+      foto: ''
     });
 
     if (this.modelo !== undefined){
@@ -37,5 +38,9 @@ export class FormularioActoresComponent implements OnInit {
 
   onSubmit() {
     this.submit.emit(this.form.value);
+  }
+
+  archivoSeleccionado(file){
+    this.form.get('foto').setValue(file);
   }
 }
