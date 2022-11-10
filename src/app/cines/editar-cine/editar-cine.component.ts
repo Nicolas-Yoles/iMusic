@@ -10,7 +10,7 @@ import { cineCreacionDTO, cineDTO } from '../cine';
 export class EditarCineComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {}
 
-  modelo: cineDTO = {nombre: "Sambil",}
+  modelo: cineDTO = {nombre: "Sambil", latitud:-31.434636439954172 , longitud:-64.17829871177675 }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
