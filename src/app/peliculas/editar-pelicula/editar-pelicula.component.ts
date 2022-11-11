@@ -24,4 +24,8 @@ export class EditarPeliculaComponent implements OnInit {
       // alert(params.id);
     });
   }
+
+  guardarCambios(pelicula: PeliculaCreacionDTO){
+    console.log(pelicula);
+  }
 }
