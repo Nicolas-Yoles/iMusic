@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PeliculaCreacionDTO } from '../pelicula';
 
 @Component({
   selector: 'app-crear-pelicula',
@@ -13,8 +14,7 @@ export class CrearPeliculaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  guardarCambios(){
-    // ... guardar los cambios
-    this.router.navigate(['']);
+  guardarCambios(pelicula: PeliculaCreacionDTO){
+    console.log(pelicula);
   }
 }
