@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/multipleSelectorModel';
 import { PeliculaCreacionDTO, PeliculaDTO } from '../pelicula';
 
 @Component({
@@ -18,6 +19,15 @@ export class FormularioPeliculaComponent implements OnInit {
   @Output()
   OnSubmit: EventEmitter<PeliculaCreacionDTO> = new EventEmitter<PeliculaCreacionDTO>();
 
+  generosNoSeleccionados: MultipleSelectorModel[] = [
+    { llave: 1, valor: 'Drama' },
+    { llave: 2, valor: 'Accion' },
+    { llave: 3, valor: 'Aventura' },
+    { llave: 4, valor: 'Epico' },
+  ];
+
+  generosSeleccionados: MultipleSelectorModel[] = [];
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       titulo: ['', { validators: [Validators.required] }],
@@ -28,7 +38,7 @@ export class FormularioPeliculaComponent implements OnInit {
       poster: '',
     });
 
-    if (this.modelo !== undefined){
+    if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
     }
   }
@@ -42,6 +52,7 @@ export class FormularioPeliculaComponent implements OnInit {
   }
 
   guardarCambios() {
+    console.log(this.generosSeleccionados);
     this.OnSubmit.emit(this.form.value);
   }
 }
