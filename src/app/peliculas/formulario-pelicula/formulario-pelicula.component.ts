@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/multipleSelectorModel';
+import { __values } from 'tslib';
 import { PeliculaCreacionDTO, PeliculaDTO } from '../pelicula';
 
 @Component({
@@ -36,6 +37,7 @@ export class FormularioPeliculaComponent implements OnInit {
       trailer: '',
       fechaLanzamiento: '',
       poster: '',
+      generosId: '',
     });
 
     if (this.modelo !== undefined) {
@@ -53,6 +55,8 @@ export class FormularioPeliculaComponent implements OnInit {
 
   guardarCambios() {
     console.log(this.generosSeleccionados);
+    const generosIds = this.generosSeleccionados.map(val => val.llave);
+    this.form.get('generosId').setValue(generosIds);
     this.OnSubmit.emit(this.form.value);
   }
 }
