@@ -16,8 +16,9 @@ export class FormularioGeneroComponent implements OnInit {
   @Output()
   submit: EventEmitter<generoCreacionDTO> = new EventEmitter<generoCreacionDTO>();
 
-  constructor(private formBuilder: FormBuilder) {}
   form: FormGroup;
+  
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
