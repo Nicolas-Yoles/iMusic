@@ -9,15 +9,17 @@ import { generoCreacionDTO } from '../genero';
   styleUrls: ['./formulario-genero.component.css'],
 })
 export class FormularioGeneroComponent implements OnInit {
-  
+  form: FormGroup;
+
+  @Input()
+  errores: string[] = [];
+
   @Input()
   modelo: generoCreacionDTO;
-  
-  @Output()
-  OnSubmit: EventEmitter<generoCreacionDTO> = new EventEmitter<generoCreacionDTO>();
 
-  form: FormGroup;
-  
+  @Output()
+  onSubmit: EventEmitter<generoCreacionDTO> = new EventEmitter<generoCreacionDTO>();
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -33,14 +35,14 @@ export class FormularioGeneroComponent implements OnInit {
         },
       ],
     });
-    
-    if (this.modelo !== undefined){
+
+    if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
     }
   }
 
   guardarCambios() {
-    this.OnSubmit.emit(this.form.value);
+    this.onSubmit.emit(this.form.value);
   }
 
   obtenerErrorCampoNombre() {
