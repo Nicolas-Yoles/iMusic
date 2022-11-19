@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { generoCreacionDTO } from '../genero';
+import { parsearErroresAPI } from 'src/app/utilidades/utilidades';
+import { generoCreacionDTO, generoDTO } from '../genero';
+import { GenerosService } from '../generos.service';
 
 @Component({
   selector: 'app-editar-genero',
@@ -8,15 +10,32 @@ import { generoCreacionDTO } from '../genero';
   styleUrls: ['./editar-genero.component.css'],
 })
 export class EditarGeneroComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private generosService: GenerosService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  modelo: generoCreacionDTO = {nombre: 'Drama'}; 
+  modelo: generoDTO;
 
-  ngOnInit(): void {}
+  errores: string[] = [];
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      // alert(params.id);
+      this.generosService.obtenerPorId(params.id).subscribe(
+        (genero) => {
+          this.modelo = genero;
+        },
+        () => this.router.navigate(['/generos'])
+      );
+    });
+  }
 
   guardarCambios(genero: generoCreacionDTO) {
     // ... guardar los cambios
-    console.log(genero);
-    this.router.navigate(['/generos']);
+    this.generosService.editar(this.modelo.id, genero).subscribe(() => {
+      this.router.navigate(['/generos']);
+    }, error => this.errores = parsearErroresAPI(error));
   }
 }
