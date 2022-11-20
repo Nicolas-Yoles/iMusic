@@ -13,6 +13,9 @@ export class FormularioActoresComponent implements OnInit {
   form: FormGroup;
 
   @Input()
+  errores: string[] = [];
+
+  @Input()
   modelo: actorCreacionDTO;
 
   @Output()
@@ -31,19 +34,19 @@ export class FormularioActoresComponent implements OnInit {
       biografia: '',
     });
 
-    if (this.modelo !== undefined){
+    if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo);
     }
   }
-  
-  archivoSeleccionado(file){
+
+  archivoSeleccionado(file) {
     this.form.get('foto').setValue(file);
   }
-  
-  cambioMarkdown(texto: string){
+
+  cambioMarkdown(texto: string) {
     this.form.get('biografia').setValue(texto);
   }
-  
+
   onSubmit() {
     this.OnSubmit.emit(this.form.value);
   }
