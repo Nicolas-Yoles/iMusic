@@ -13,19 +13,23 @@ import { ActoresService } from '../actores.service';
 })
 export class AutocompleteActoresComponent implements OnInit {
   constructor(private actoresService: ActoresService) {}
+
   control: FormControl = new FormControl();
 
   @Input()
   actoresSeleccionados: actorPeliculaDTO[] = [];
+
+  actoresAMostrar: actorPeliculaDTO[] = [];
 
   columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
 
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
-    this.control.valueChanges.subscribe((valor) => {
-this.actoresService.obtenerPorNombre(nombre)
-      );
+    this.control.valueChanges.subscribe((nombre) => {
+      this.actoresService.obtenerPorNombre(nombre).subscribe((actores) => {
+        this.actoresAMostrar = actores;
+      });
     });
   }
 
@@ -46,11 +50,15 @@ this.actoresService.obtenerPorNombre(nombre)
     this.table.renderRows();
   }
 
-  finalizaArrastre(event: CdkDragDrop<any[]>){
+  finalizaArrastre(event: CdkDragDrop<any[]>) {
     const indicePrevio = this.actoresSeleccionados.findIndex(
-      actor => actor === event.item.data
-    )
-    moveItemInArray(this.actoresSeleccionados, indicePrevio, event.currentIndex);
+      (actor) => actor === event.item.data
+    );
+    moveItemInArray(
+      this.actoresSeleccionados,
+      indicePrevio,
+      event.currentIndex
+    );
     this.table.renderRows();
   }
 }
