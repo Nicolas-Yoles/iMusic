@@ -10,14 +10,7 @@ import { PeliculaCreacionDTO, PeliculaDTO } from '../pelicula';
 export class EditarPeliculaComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {}
 
-  modelo: PeliculaDTO = {
-    titulo: 'Harry Potter',
-    trailer: 'abc',
-    enCines: true,
-    resumen: 'cosa',
-    fechaLanzamiento: new Date(),
-    poster: 'https://es.web.img2.acsta.net/pictures/14/04/30/11/55/592219.jpg',
-  };
+  modelo: PeliculaDTO;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {

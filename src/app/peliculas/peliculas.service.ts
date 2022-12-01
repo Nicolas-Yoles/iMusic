@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GenerosService } from '../generos/generos.service';
 import { formatearFecha } from '../utilidades/utilidades';
-import { PeliculaCreacionDTO, PeliculasPostGet } from './pelicula';
+import { PeliculaCreacionDTO, PeliculaDTO, PeliculasPostGet } from './pelicula';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,12 @@ import { PeliculaCreacionDTO, PeliculasPostGet } from './pelicula';
 export class PeliculasService {
   constructor(private http: HttpClient) {}
   private apiURL = environment.apiURL + 'peliculas';
+
+
+  public obtenerPorId(id: number): Observable<PeliculaDTO>{
+    return this.http.get<PeliculaDTO>(`${this.apiURL}/${id}`);
+  }
+
 
   public postGet(): Observable<PeliculasPostGet> {
     return this.http.get<PeliculasPostGet>(`${this.apiURL}/postget`);

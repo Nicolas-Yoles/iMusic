@@ -21,6 +21,9 @@ export interface PeliculaDTO {
     trailer: string;
     fechaLanzamiento: Date;
     poster: string;
+    generos: generoDTO[];
+    actores: actorPeliculaDTO[];
+    cines: cineDTO[];
   }
 
 export interface PeliculasPostGet{
