@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GenerosService } from '../generos/generos.service';
 import { formatearFecha } from '../utilidades/utilidades';
-import { LandingPageDTO, PeliculaCreacionDTO, PeliculaDTO, PeliculasPostGet } from './pelicula';
+import { LandingPageDTO, PeliculaCreacionDTO, PeliculaDTO, PeliculaPutGet, PeliculasPostGet } from './pelicula';
 
 @Injectable({
   providedIn: 'root',
@@ -26,9 +26,18 @@ export class PeliculasService {
     return this.http.get<PeliculasPostGet>(`${this.apiURL}/postget`);
   }
 
+  public putGet(id: number):  Observable<PeliculaPutGet>{
+    return this.http.get<PeliculaPutGet>(`${this.apiURL}/putget/${id}`);
+  }
+
   public crear(pelicula: PeliculaCreacionDTO) {
     const formData = this.construirFormData(pelicula);
     return this.http.post(this.apiURL, formData);
+  }
+  
+  public editar(id:number, pelicula: PeliculaCreacionDTO) {
+    const formData = this.construirFormData(pelicula);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
   private construirFormData(pelicula: PeliculaCreacionDTO): FormData {

@@ -15,7 +15,6 @@ export class FormularioPeliculaComponent implements OnInit {
 
   form: FormGroup;
 
-
   @Input()
   errores: string[] = [];
 
@@ -23,21 +22,25 @@ export class FormularioPeliculaComponent implements OnInit {
   modelo: PeliculaDTO;
 
   @Output()
-  OnSubmit: EventEmitter<PeliculaCreacionDTO> = new EventEmitter<PeliculaCreacionDTO>();
-
+  OnSubmit: EventEmitter<PeliculaCreacionDTO> =
+    new EventEmitter<PeliculaCreacionDTO>();
 
   @Input()
-  generosNoSeleccionados: MultipleSelectorModel[] = [];
+  generosNoSeleccionados: MultipleSelectorModel[];
 
+  @Input()
   generosSeleccionados: MultipleSelectorModel[] = [];
 
   @Input()
-  cinesNoSeleccionados: MultipleSelectorModel[] = [];
+  cinesNoSeleccionados: MultipleSelectorModel[];
 
+  @Input()
   cinesSeleccionados: MultipleSelectorModel[] = [];
 
   @Input()
   actoresSeleccionados: actorPeliculaDTO[] = [];
+
+  imagenCambiada = false;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -59,6 +62,7 @@ export class FormularioPeliculaComponent implements OnInit {
 
   archivoSeleccionado(archivo: File) {
     this.form.get('poster').setValue(archivo);
+    this.imagenCambiada = true;
   }
 
   changeMarkdown(texto) {
@@ -67,20 +71,22 @@ export class FormularioPeliculaComponent implements OnInit {
 
   guardarCambios() {
     console.log(this.generosSeleccionados);
-    
+
     const generosIds = this.generosSeleccionados.map((val) => val.llave);
     this.form.get('generosIds').setValue(generosIds);
-    
+
     const cinesIds = this.cinesSeleccionados.map((val) => val.llave);
     this.form.get('cinesIds').setValue(cinesIds);
-    
-    const actores = this.actoresSeleccionados.map(val =>{
-      return {id: val.id, personaje: val.personaje}
+
+    const actores = this.actoresSeleccionados.map((val) => {
+      return { id: val.id, personaje: val.personaje };
     });
     this.form.get('actores').setValue(actores);
 
+    if (!this.imagenCambiada){
+      this.form.patchValue({'poster': null});
+    }
+
     this.OnSubmit.emit(this.form.value);
-
-
   }
 }
