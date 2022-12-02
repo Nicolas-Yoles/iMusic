@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GenerosService } from '../generos/generos.service';
 import { formatearFecha } from '../utilidades/utilidades';
-import { PeliculaCreacionDTO, PeliculaDTO, PeliculasPostGet } from './pelicula';
+import { LandingPageDTO, PeliculaCreacionDTO, PeliculaDTO, PeliculasPostGet } from './pelicula';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,9 @@ export class PeliculasService {
   constructor(private http: HttpClient) {}
   private apiURL = environment.apiURL + 'peliculas';
 
+  public obtenerLandingPage():Observable<LandingPageDTO>{
+    return this.http.get<LandingPageDTO>(this.apiURL);
+  }
 
   public obtenerPorId(id: number): Observable<PeliculaDTO>{
     return this.http.get<PeliculaDTO>(`${this.apiURL}/${id}`);
